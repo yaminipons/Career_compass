@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Python
+server/venv_careeradvisor/
+server/__pycache__/
+server/routes/__pycache__/
+
+# Environment variables (NEVER push this)
+server/.env
+
+# Build
+client/build/
+
+# OS files
+.DS_Store
+Thumbs.db
