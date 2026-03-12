@@ -54,17 +54,29 @@ async def register(user: RegisterUser):
 # --- Login Route ---
 @router.post("/login")
 async def login(user: LoginUser):
-    # Find user in database
     found = await users_collection.find_one({"email": user.email})
     if not found:
         raise HTTPException(status_code=400, detail="Email not found")
 
-    # Check password
     valid = bcrypt.checkpw(user.password.encode("utf-8"), found["password"].encode("utf-8"))
     if not valid:
         raise HTTPException(status_code=400, detail="Wrong password")
 
-    # Create a JWT token
-    token = jwt.encode({"id": str(found["_id"]), "email": found["email"]}, SECRET_KEY, algorithm="HS256")
+    token = jwt.encode(
+        {"id": str(found["_id"]), "email": found["email"]},
+        SECRET_KEY,
+        algorithm="HS256"
+    )
 
-    return {"token": token, "name": found["name"]}
+    # Check if profile is complete
+    profile_complete = bool(
+        found.get("stream") and
+        len(found.get("skills", [])) > 0 and
+        len(found.get("interests", [])) > 0
+    )
+
+    return {
+        "token": token,
+        "name": found["name"],
+        "profile_complete": profile_complete
+    }

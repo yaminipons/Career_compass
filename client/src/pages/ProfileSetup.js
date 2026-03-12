@@ -57,9 +57,9 @@ export default function ProfileSetup() {
         stream: form.stream,
         interests: form.interests,
         skills: form.skills,
-        tenth: parseFloat(form.tenth),
-        twelfth: parseFloat(form.twelfth)
-      });
+        tenth: parseFloat(form.tenth) || 0,
+        twelfth: parseFloat(form.twelfth) || 0
+    });
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to save profile. Please try again.');

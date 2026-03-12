@@ -13,18 +13,24 @@ export default function Login() {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const res = await API.post('/auth/login', form);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('name', res.data.name);
+  setLoading(true);
+  setError('');
+  try {
+    const res = await API.post('/auth/login', form);
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('name', res.data.name);
+
+    // Redirect based on profile completion
+    if (res.data.profile_complete) {
       navigate('/dashboard');
-    } catch (err) {
-      setError(err.response?.data?.detail || 'Something went wrong');
+    } else {
+      navigate('/setup');
     }
-    setLoading(false);
-  };
+  } catch (err) {
+    setError(err.response?.data?.detail || 'Something went wrong');
+  }
+  setLoading(false);
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -73,11 +79,10 @@ export default function Login() {
           </button>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-indigo-600 font-medium hover:underline">
-            Register
-          </Link>
+        <p className="text-center mt-4">
+          <button onClick={() => navigate('/')} className="text-sm text-gray-400 hover:text-indigo-500 transition">
+            ← Back to Home
+          </button>
         </p>
       </div>
     </div>

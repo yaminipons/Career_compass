@@ -4,6 +4,8 @@ import Register from './pages/Register';
 import ProfileSetup from './pages/ProfileSetup';
 import Dashboard from './pages/Dashboard';
 import CareerDetail from './pages/CareerDetail';
+import Profile from './pages/Profile';
+import Landing from './pages/Landing';
 
 // Protect routes that need login
 function PrivateRoute({ children }) {
@@ -15,11 +17,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/setup" element={
           <PrivateRoute><ProfileSetup /></PrivateRoute>
+        } />
+        <Route path="/profile" element={
+          <PrivateRoute><Profile /></PrivateRoute>
         } />
         <Route path="/dashboard" element={
           <PrivateRoute><Dashboard /></PrivateRoute>
