@@ -66,7 +66,7 @@ const careers = [
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { } = useTheme();
+  useTheme();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
