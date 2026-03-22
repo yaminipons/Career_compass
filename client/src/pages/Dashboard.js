@@ -186,6 +186,12 @@ export default function Dashboard() {
           <DarkModeToggle />
           <span className="text-gray-600 dark:text-gray-300 text-sm">👋 Hello, {name}!</span>
           <button
+            onClick={() => navigate('/chatbot')}
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
+          >
+            🤖 AI Career Mentor
+          </button>
+          <button
             onClick={downloadPDF}
             className="text-sm px-4 py-2 bg-green-50 dark:bg-green-900 text-green-600 dark:text-green-300 border-2 border-green-200 dark:border-green-700 rounded-lg hover:bg-green-100 transition"
           >

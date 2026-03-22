@@ -7,6 +7,7 @@ import CareerDetail from './pages/CareerDetail';
 import Profile from './pages/Profile';
 import Landing from './pages/Landing';
 import SkillGap from './pages/SkillGap';
+import Chatbot from './pages/Chatbot';
 
 // Protect routes that need login
 function PrivateRoute({ children }) {
@@ -35,6 +36,9 @@ function App() {
         } />
         <Route path="/skillgap" element={
           <PrivateRoute><SkillGap /></PrivateRoute>
+        } />
+        <Route path="/chatbot" element={
+          <PrivateRoute><Chatbot /></PrivateRoute>
         } />
       </Routes>
     </BrowserRouter>

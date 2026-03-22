@@ -10,6 +10,7 @@ from routes.auth import router as auth_router
 from routes.profile import router as profile_router
 from routes.careers import router as careers_router
 from routes.skillgap import router as skillgap_router
+from routes.chatbot import router as chatbot_router
 
 app = FastAPI()
 
@@ -28,6 +29,7 @@ app.include_router(auth_router, prefix="/auth")
 app.include_router(profile_router, prefix="/profile")
 app.include_router(careers_router, prefix="/careers")
 app.include_router(skillgap_router, prefix="/skillgap")
+app.include_router(chatbot_router, prefix="/chatbot")
 
 @app.get("/")
 def home():
