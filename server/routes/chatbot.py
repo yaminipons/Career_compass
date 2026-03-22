@@ -4,14 +4,11 @@ from typing import List
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from google import genai
-from google.genai import types
+from groq import Groq
 
 load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 router = APIRouter()
-
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 SYSTEM_PROMPT = """You are CareerBot, an expert AI Career Mentor built into CareerCompass — a career guidance platform for Indian students.
 
@@ -52,38 +49,34 @@ class ChatRequest(BaseModel):
 @router.post("/chat")
 async def chat(request: ChatRequest):
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
         # Build conversation history
-        contents = []
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+
+        # Add last 10 messages for context
         for msg in request.history[-10:]:
-            role = "user" if msg.role == "user" else "model"
-            contents.append(
-                types.Content(
-                    role=role,
-                    parts=[types.Part(text=msg.content)]
-                )
-            )
+            messages.append({
+                "role": msg.role if msg.role == "user" else "assistant",
+                "content": msg.content
+            })
 
-        # Add current user message
-        contents.append(
-            types.Content(
-                role="user",
-                parts=[types.Part(text=request.message)]
-            )
+        # Add current message
+        messages.append({
+            "role": "user",
+            "content": request.message
+        })
+
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            max_tokens=1000,
+            temperature=0.7
         )
 
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                max_output_tokens=1000,
-                temperature=0.7
-            ),
-            contents=contents
-        )
-
-        return {"reply": response.text}
+        return {"reply": response.choices[0].message.content}
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
