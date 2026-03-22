@@ -192,6 +192,12 @@ export default function Dashboard() {
             📄 Download Report
           </button>
           <button
+            onClick={() => navigate('/skillgap')}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition"
+          >
+            🔍 Skill Gap Analyzer
+          </button>
+          <button
             onClick={() => navigate('/profile')}
             className="text-sm px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 border-2 border-indigo-200 dark:border-indigo-700 rounded-lg hover:bg-indigo-100 transition"
           >

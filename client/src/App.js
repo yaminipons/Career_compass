@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import CareerDetail from './pages/CareerDetail';
 import Profile from './pages/Profile';
 import Landing from './pages/Landing';
+import SkillGap from './pages/SkillGap';
 
 // Protect routes that need login
 function PrivateRoute({ children }) {
@@ -31,6 +32,9 @@ function App() {
         } />
         <Route path="/career/:id" element={
           <PrivateRoute><CareerDetail /></PrivateRoute>
+        } />
+        <Route path="/skillgap" element={
+          <PrivateRoute><SkillGap /></PrivateRoute>
         } />
       </Routes>
     </BrowserRouter>
