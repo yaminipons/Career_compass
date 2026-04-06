@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Landing from './pages/Landing';
 import SkillGap from './pages/SkillGap';
 import Chatbot from './pages/Chatbot';
+import ResumeAnalyzer from './pages/ResumeAnalyzer';
 
 // Protect routes that need login
 function PrivateRoute({ children }) {
@@ -39,6 +40,9 @@ function App() {
         } />
         <Route path="/chatbot" element={
           <PrivateRoute><Chatbot /></PrivateRoute>
+        } />
+        <Route path="/resume" element={
+          <PrivateRoute><ResumeAnalyzer /></PrivateRoute>
         } />
       </Routes>
     </BrowserRouter>

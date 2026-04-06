@@ -192,6 +192,12 @@ export default function Dashboard() {
             🤖 AI Career Mentor
           </button>
           <button
+            onClick={() => navigate('/resume')}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition"
+          >
+            📄 Resume Analyzer
+          </button>
+          <button
             onClick={downloadPDF}
             className="text-sm px-4 py-2 bg-green-50 dark:bg-green-900 text-green-600 dark:text-green-300 border-2 border-green-200 dark:border-green-700 rounded-lg hover:bg-green-100 transition"
           >
